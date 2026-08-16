@@ -14,7 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      keerthanas: {
+        Row: {
+          composer: string | null
+          created_at: string
+          created_by: string | null
+          deity: string | null
+          id: string
+          lyrics: string | null
+          meaning: string | null
+          name: string
+          raga: string | null
+          tala: string | null
+          updated_at: string
+        }
+        Insert: {
+          composer?: string | null
+          created_at?: string
+          created_by?: string | null
+          deity?: string | null
+          id?: string
+          lyrics?: string | null
+          meaning?: string | null
+          name: string
+          raga?: string | null
+          tala?: string | null
+          updated_at?: string
+        }
+        Update: {
+          composer?: string | null
+          created_at?: string
+          created_by?: string | null
+          deity?: string | null
+          id?: string
+          lyrics?: string | null
+          meaning?: string | null
+          name?: string
+          raga?: string | null
+          tala?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      notation_files: {
+        Row: {
+          created_at: string
+          file_name: string
+          id: string
+          keerthana_id: string
+          language: string
+          mime_type: string | null
+          size_bytes: number
+          storage_path: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_name: string
+          id?: string
+          keerthana_id: string
+          language: string
+          mime_type?: string | null
+          size_bytes?: number
+          storage_path: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_name?: string
+          id?: string
+          keerthana_id?: string
+          language?: string
+          mime_type?: string | null
+          size_bytes?: number
+          storage_path?: string
+          uploaded_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notation_files_keerthana_id_fkey"
+            columns: ["keerthana_id"]
+            isOneToOne: false
+            referencedRelation: "keerthanas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
