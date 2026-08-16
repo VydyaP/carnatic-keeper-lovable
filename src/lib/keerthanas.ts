@@ -87,11 +87,13 @@ export async function deleteKeerthanas(ids: string[]) {
   if (error) throw error;
 }
 
-export async function bulkAssign(ids: string[], field: string, value: string | null) {
-  const { error } = await supabase
-    .from("keerthanas")
-    .update({ [field]: value })
-    .in("id", ids);
+export async function bulkAssign(
+  ids: string[],
+  field: "raga" | "tala" | "composer" | "deity",
+  value: string | null,
+) {
+  const patch: Partial<KeerthanaInput> = { [field]: value };
+  const { error } = await supabase.from("keerthanas").update(patch).in("id", ids);
   if (error) throw error;
 }
 
@@ -104,7 +106,7 @@ export async function uploadNotation(
   const safeName = file.name.replace(/[^\w.\-]+/g, "_");
   const path = `${keerthanaId}/${language}/${Date.now()}-${safeName}`;
   const { error: uploadError } = await supabase.storage.from(BUCKET).upload(path, file, {
-    contentType: file.type || undefined,
+    contentType: file.type || "application/octet-stream",
     upsert: false,
   });
   if (uploadError) throw uploadError;
