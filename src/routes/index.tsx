@@ -310,8 +310,8 @@ function Collection() {
               Apply to all
             </Button>
           </DialogFooter>
-        </DialogFooter>
         </DialogContent>
+
       </Dialog>
     </div>
   );
