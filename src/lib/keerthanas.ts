@@ -134,3 +134,13 @@ export async function notationUrl(path: string) {
   if (error) throw error;
   return data.signedUrl;
 }
+
+export async function fetchStorageUsage(): Promise<{ bytes: number; count: number }> {
+  const { data, error } = await supabase.from("notation_files").select("size_bytes");
+  if (error) throw error;
+  const rows = data ?? [];
+  return {
+    bytes: rows.reduce((sum, r) => sum + (r.size_bytes ?? 0), 0),
+    count: rows.length,
+  };
+}
